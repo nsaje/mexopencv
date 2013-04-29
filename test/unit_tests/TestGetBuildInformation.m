@@ -1,23 +1,22 @@
-classdef TestMSER
-    %TestMSER
+classdef TestGetBuildInformation
+    %TestGetBuildInformation
+
     properties (Constant)
-        img = rgb2gray(imread(fullfile(mexopencv.root(),'test','img001.jpg')));
     end
-    
+
     methods (Static)
         function test_1
-            chains = cv.MSER(TestMSER.img);
+            info = cv.getBuildInformation();
+            assert(ischar(info) && ~isempty(info));
         end
-        
-        function test_error_1
+
+        function test_error
             try
-                cv.MSER();
+                cv.getBuildInformation([]);
                 throw('UnitTest:Fail');
             catch e
                 assert(strcmp(e.identifier,'mexopencv:error'));
             end
         end
     end
-    
 end
-
